@@ -1,0 +1,9 @@
+main{
+    margin:0.1rem;
+    padding: 0.3rem;
+}
+
+.custom-tooltip {
+    --bs-tooltip-bg: var(--bs-danger);
+  }
+  
