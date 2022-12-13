@@ -35,23 +35,28 @@ for (const element of elements){
 
             let getElementName = document.getElementById(`${elementName}-text`);
             getElementName.classList.add("text-danger");
-            
-            let textTooltip = "";
 
             if(element.validity.valueMissing){
-                textTooltip = "Veuillez remplir ce champs";
+                element.setAttribute("data-bs-title", "Veuillez remplir ce champs")
             }else if(elementName == "date" && element.validity.rangeUnderflow){
-                textTooltip = "Veuillez indiquer une date supérieure à aujourd'hui"; 
+                element.setAttribute("tooltip-inner", "Veuillez indiquer une date supérieure à aujourd'hui");
             }else if(elementName == "price" && element.validity.rangeUnderflow){
-                textTooltip = "Veuillez indiquer un tarif supérieur à zéro";
+                element.setAttribute("tooltip-inner", "Veuillez indiquer un tarif supérieur à zéro");
             }
 
             element.setAttribute("data-bs-toggle", "tooltip");
-            element.setAttribute("data-bs-title", textTooltip);
             element.setAttribute("data-bs-custom-class", "custom-tooltip");
             element.setAttribute("data-bs-placement", "top");
 
             const tooltip = bootstrap.Tooltip.getOrCreateInstance(element);
+
+            if(element.validity.valueMissing){
+                tooltip.setContent({'.tooltip-inner' : 'Veuillez remplir ce champs'});
+            }else if(elementName == "date" && element.validity.rangeUnderflow){
+                tooltip.setContent({'.tooltip-inner' : 'Veuillez indiquer une date supérieure à aujourd\'hui'});
+            }else if(elementName == "price" && element.validity.rangeUnderflow){
+                tooltip.setContent({'.tooltip-inner' : 'Veuillez indiquer un tarif supérieur à zéro'});
+            }
 
             let firstInvalidElement = document.querySelector(".is-invalid");
             
@@ -74,28 +79,8 @@ for (const element of elements){
             }else{
 
                 let invalidElement = document.querySelector(".is-invalid");
-
-                let invalidName = invalidElement.name;
-
-                let newTooltip = "";
-
-                if(invalidElement.validity.valueMissing){
-                    newTooltip = "Veuillez remplir ce champs";
-                }else if(invalidName == "date" && invalidElement.validity.rangeUnderflow){
-                    newTooltip = "Veuillez indiquer une date supérieure à aujourd'hui"; 
-                }else if(invalidName == "price" && invalidElement.validity.rangeUnderflow){
-                    newTooltip = "Veuillez indiquer un tarif supérieur à zéro";
-                }
-
-                element.setAttribute("data-bs-toggle", "tooltip");
-                element.setAttribute("data-bs-title", newTooltip);
-                element.setAttribute("data-bs-custom-class", "custom-tooltip");
-                element.setAttribute("data-bs-placement", "top");
-
-
-                const tooltip = bootstrap.Tooltip.getOrCreateInstance(invalidElement);
-
                 invalidElement.focus();
+
             }
 
         })
