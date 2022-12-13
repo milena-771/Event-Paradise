@@ -37,11 +37,11 @@ for (const element of elements){
             getElementName.classList.add("text-danger");
 
             if(element.validity.valueMissing){
-                element.setAttribute("data-bs-title", "Veuillez remplir ce champs")
+                element.setAttribute("data-bs-title", "Ce champs est obligatoire")
             }else if(elementName == "date" && element.validity.rangeUnderflow){
-                element.setAttribute("tooltip-inner", "Veuillez indiquer une date supérieure à aujourd'hui");
+                element.setAttribute("tooltip-inner", "Doit être égale ou supérieure à aujourd'hui");
             }else if(elementName == "price" && element.validity.rangeUnderflow){
-                element.setAttribute("tooltip-inner", "Veuillez indiquer un tarif supérieur à zéro");
+                element.setAttribute("tooltip-inner", "Doit être positif");
             }
 
             element.setAttribute("data-bs-toggle", "tooltip");
@@ -51,11 +51,11 @@ for (const element of elements){
             const tooltip = bootstrap.Tooltip.getOrCreateInstance(element);
 
             if(element.validity.valueMissing){
-                tooltip.setContent({'.tooltip-inner' : 'Veuillez remplir ce champs'});
+                tooltip.setContent({'.tooltip-inner' : 'Ce champs est obligatoire'});
             }else if(elementName == "date" && element.validity.rangeUnderflow){
-                tooltip.setContent({'.tooltip-inner' : 'Veuillez indiquer une date supérieure à aujourd\'hui'});
+                tooltip.setContent({'.tooltip-inner' : 'Doit être égale ou supérieure à aujourd\'hui'});
             }else if(elementName == "price" && element.validity.rangeUnderflow){
-                tooltip.setContent({'.tooltip-inner' : 'Veuillez indiquer un tarif supérieur à zéro'});
+                tooltip.setContent({'.tooltip-inner' : 'Doit être positif'});
             }
 
             let firstInvalidElement = document.querySelector(".is-invalid");
@@ -74,12 +74,7 @@ for (const element of elements){
 
                 const tooltip = bootstrap.Tooltip.getOrCreateInstance(element);
 
-                tooltip.dispose();
-
-            }else{
-
-                let invalidElement = document.querySelector(".is-invalid");
-                invalidElement.focus();
+                tooltip.dispose();   
 
             }
 
