@@ -53,8 +53,8 @@ for (const element of elements){
             //modified the message after submitted form if input is still invalid
             tooltip.setContent({'.tooltip-inner' : message});
             
-            let firstInvalidElement = document.querySelector(".is-invalid"); 
-            if(firstInvalidElement == element){
+            let firstInvalidElement = document.querySelector(".is-invalid");//get first invalid input
+            if(firstInvalidElement == element){//after change if the element on focus is first invalid element => focus()
                 firstInvalidElement.focus();
             }
             
