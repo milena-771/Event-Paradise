@@ -13,7 +13,7 @@
     </head>
 
     <body>
-        <header class="bg-light"> 
+        <header class="bg-light px-2"> 
             <nav class="navbar">
                 <span class="fw-bold">EventParadise</span>
             </nav>
@@ -22,7 +22,7 @@
         <main>
             <h1>Créer un évènement</h1>
 
-            <form class="row g-3">
+            <form class="row g-3 m-0">
                 <div class="col-md-4 position-relative ">
                     <label for="name" class="form-label">Nom</label>
                     <input type="text" name="name" class="form-control" id="name" minlength="1" maxlength="255" required>
@@ -57,7 +57,7 @@
                     <label for="price" class="form-label">Tarif</label>
                     <div class="input-group">
                         <span class="input-group-text">€</span>
-                        <input type="number" name="price" class="form-control" id="price" min="1" required>
+                        <input type="number" name="price" class="form-control" id="price" min="0.01"  step=".01" required>
                     </div>
                     <div class="form-text" id="price-text">Tarif journalier de l'évènement.</div>
                 </div>
@@ -79,13 +79,7 @@
                         </div>
                     </div>
                 </div>
-
-                
-            </form>
-
-           
-  
-                
+            </form>         
         </main>
         
     </body>

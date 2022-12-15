@@ -1,21 +1,14 @@
 let today = new Date(); // create a date Object
 
-let day = today.getDate(); //assign today's day
+let day = today.getDate().toString().padStart(2,"0"); //assign today's day
 let month = today.getMonth()+1; //January is 0 (assign today's month)
 let year = today.getFullYear();//assign today's year
 
-        if(day<10){
-                day='0'+day
-            } 
-        if(month<10){
-            month='0'+month
-        }
-        today = year+'-'+month+'-'+ day; //Create the correct format for the date
+today = year+'-'+month+'-'+ day; //Create the correct format for the date
 
 const date = document.getElementById("date");//get the input date
 
 date.setAttribute("min", today);//Create and set an attribute min starting today
-
 
 //Select my form
 let form = document.querySelector("form");
@@ -30,9 +23,10 @@ const options = {
 
 //Loop on elements to isolate the inputs
 for (const element of elements){
+    const type = element.type;
     const elementName = element.name;
     //Check if one or several inputs are invalids
-    if(!element.checkValidity()){ 
+    if( type != "submit"){ 
         element.addEventListener("invalid", (event) => { //Create a callback function when an input is invalid
             event.preventDefault(); //Disable default beahvior of html
             
@@ -58,41 +52,50 @@ for (const element of elements){
             
             //modified the message after submitted form if input is still invalid
             tooltip.setContent({'.tooltip-inner' : message});
-         
-            let firstInvalidElement = document.querySelector(".is-invalid");
             
-            firstInvalidElement.focus();
-           
+            let firstInvalidElement = document.querySelector(".is-invalid"); 
+            if(firstInvalidElement == element){
+                firstInvalidElement.focus();
+            }
+            
+        })  
 
-        })    
         //Create a function when an input is changed by the user
         element.addEventListener("change", (event) => {
             if(element.checkValidity()){
-                
-                element.classList.replace("is-invalid","is-valid");
 
+                element.classList.remove("is-invalid");
+                element.classList.add("is-valid");
+                
                 let getElementName = document.getElementById(`${elementName}-text`);
-                getElementName.classList.replace("text-danger","text-success"); 
+                getElementName.classList.remove("text-danger"); 
+                getElementName.classList.add("text-success"); 
 
                 const tooltip = bootstrap.Tooltip.getOrCreateInstance(element);
 
                 tooltip.dispose();//destroy the tooltip
-
             }
 
         })
-    }
+
+    }  
+       
 }
-
-
 form.addEventListener("submit", (event) => {
-    event.preventDefault();
-        if(form.reportValidity()){//check if all the fields are valid...
-            form.reset();//...the form resets...
-            displayToaster(); //...the function for the toaster is called     
-        }
+        event.preventDefault();
+            if(form.reportValidity()){//check if all the fields are valid...
+                form.reset();//...the form resets...
+                for(const element of elements){
+                    element.classList.remove("is-valid");
+                    const elementName = element.name;
+                    let getElementName = document.getElementById(`${elementName}-text`);
+                    getElementName.classList.remove("text-success");
+                }
+                displayToaster(); //...the function for the toaster is called     
+            }
+           
 })
-    
+
 //Function to display a toaster
 function displayToaster(){
     const myToast = document.querySelector('.toast');
