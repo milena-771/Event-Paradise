@@ -85,13 +85,14 @@ form.addEventListener("submit", (event) => {
         event.preventDefault();
             if(form.reportValidity()){//check if all the fields are valid...
                 form.reset();//...the form resets...
+                displayToaster();//...the function for the toaster is called     
                 for(const element of elements){
                     element.classList.remove("is-valid");
                     const elementName = element.name;
                     let getElementName = document.getElementById(`${elementName}-text`);
                     getElementName.classList.remove("text-success");
                 }
-                displayToaster(); //...the function for the toaster is called     
+                
             }
            
 })
