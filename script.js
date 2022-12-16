@@ -1,10 +1,6 @@
-let today = new Date(); // create a date Object
 
-let day = today.getDate().toString().padStart(2,"0"); //assign today's day
-let month = today.getMonth()+1; //January is 0 (assign today's month)
-let year = today.getFullYear();//assign today's year
-
-today = year+'-'+month+'-'+ day; //Create the correct format for the date
+const newDate = new Date();
+let today = newDate.toISOString().substring(0, 10);//get the date in ISO format and extract only date without time
 
 const date = document.getElementById("date");//get the input date
 
