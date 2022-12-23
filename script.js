@@ -29,8 +29,8 @@ for (const element of elements){
             //add bootstrap classes to make appear an input as invalid
             element.classList.add("is-invalid");
 
-            let getElementName = document.getElementById(`${elementName}-text`);
-            getElementName.classList.add("text-danger");
+            let helpText = document.getElementById(`${elementName}-text`);
+            helpText.classList.add("text-danger");
 
             let message = "";
 
@@ -63,9 +63,9 @@ for (const element of elements){
                 element.classList.remove("is-invalid");
                 element.classList.add("is-valid");
                 
-                let getElementName = document.getElementById(`${elementName}-text`);
-                getElementName.classList.remove("text-danger"); 
-                getElementName.classList.add("text-success"); 
+                let helpText = document.getElementById(`${elementName}-text`);
+                helpText.classList.remove("text-danger"); 
+                helpText.classList.add("text-success"); 
 
                 const tooltip = bootstrap.Tooltip.getOrCreateInstance(element);
 
@@ -83,12 +83,15 @@ form.addEventListener("submit", (event) => {
                 form.reset();//...the form resets...
                 displayToaster();//...the function for the toaster is called     
                 for(const element of elements){
-                    element.classList.remove("is-valid");
+                    const type = element.type;
                     const elementName = element.name;
-                    let getElementName = document.getElementById(`${elementName}-text`);
-                    getElementName.classList.remove("text-success");
-                }
-                
+                    if(type != "submit"){
+                        element.classList.remove("is-valid");
+
+                        let helpText = document.querySelector(`#${elementName}-text`);
+                        helpText.classList.remove("text-success"); 
+                    }                  
+                }               
             }
            
 })
