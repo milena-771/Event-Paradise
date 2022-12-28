@@ -79,21 +79,18 @@ for (const element of elements){
 }
 form.addEventListener("submit", (event) => {
         event.preventDefault();
-            if(form.reportValidity()){//check if all the fields are valid...
-                form.reset();//...the form resets...
-                displayToaster();//...the function for the toaster is called     
-                for(const element of elements){
-                    const type = element.type;
-                    const elementName = element.name;
-                    if(type != "submit"){
-                        element.classList.remove("is-valid");
+        form.reset();//
+        displayToaster();//the function for the toaster is called     
+        for(const element of elements){
+            const type = element.type;
+            const elementName = element.name;
+            if(type != "submit"){
+                element.classList.remove("is-valid");
 
-                        let helpText = document.querySelector(`#${elementName}-text`);
-                        helpText.classList.remove("text-success"); 
-                    }                  
-                }               
-            }
-           
+                let helpText = document.querySelector(`#${elementName}-text`);
+                helpText.classList.remove("text-success"); 
+            }                  
+        }                        
 })
 
 //Function to display a toaster
@@ -102,6 +99,7 @@ function displayToaster(){
     const toast = bootstrap.Toast.getOrCreateInstance(myToast);
     toast.show();
 }
+
 
 
         
